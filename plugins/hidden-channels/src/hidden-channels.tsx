@@ -27,17 +27,12 @@ const MessageStyles = stylesheet.createThemedStyleSheet({
     'fontSize': 16,
     'textAlign': 'justify',
     'color': semanticColors.HEADER_PRIMARY,
-  },
-  'dateContainer': {
-    'height': 16,
-    'alignSelf': 'baseline',
-    'flexDirection': 'row',
     'alignItems': 'center'
   },
-  'clockIcon': {
+  'icon': {
     'width': 16,
     'height': 16,
-    'marginRight': 4
+    'marginLeft': 4
   }
 })
 
@@ -59,8 +54,8 @@ function FancyDate({ date }) {
         toasts.open({ content: "Copied to clipboard" });
       }}
     >
-      <Image style={[MessageStyles.clockIcon, { tintColor: tint }]} source={clockIcon} />
       <Text style={MessageStyles.text}>{moment(date).fromNow()}</Text>
+      <Image style={[MessageStyles.icon, { tintColor: tint }]} source={clockIcon} />
     </Pressable>
   );
 }
@@ -69,23 +64,26 @@ export default function HiddenChannel({ channel }) {
   return (
     <View style={MessageStyles.container}>
       <Text style={MessageStyles.title}>This channel is hidden.</Text>
-      <Text style={MessageStyles.text}>
-        Topic: {channel.topic || "No topic."}
-        {"\n\n"}
-        Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
-        {"\n\n"}
-        Last message: {channel.lastMessageId ? (
-          <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.lastMessageId))} />
-        ) : (
-          "No messages."
-        )}
-        {"\n\n"}
-        Last pin: {channel.lastPinTimestamp ? (
-          <FancyDate date={new Date(channel.lastPinTimestamp)} />
-        ) : (
-          "No pins."
-        )}
-      </Text>
+      <View style={MessageStyles.text}>
+        <Text>
+          Topic: {channel.topic || "No topic."}
+          {"\n\n"}
+          Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
+          {"\n\n"}
+          Last message: {channel.lastMessageId ? (
+            <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.lastMessageId))} />
+          ) : (
+            "No messages."
+          )}
+          {"\n\n"}
+          Last pin: {channel.lastPinTimestamp ? (
+            <FancyDate date={new Date(channel.lastPinTimestamp)} />
+          ) : (
+            "No pins."
+          )}
+        </Text>
+        <Image style={[MessageStyles.icon, { tintColor: semanticColors.HEADER_PRIMARY }]} source={getAssetByName("ic_hide_24px")} />
+      </View>
     </View>
   );
 }

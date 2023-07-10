@@ -1,0 +1,14 @@
+{
+    "name": "Better Hidden channels",
+    "description": "View the name and description of channels you can't access",
+    "authors": [
+        {
+            "name": "Taki_shiwa",
+            "id": "466968658997149706"
+        }
+    ],
+    "main": "src/index.ts",
+    "vendetta": {
+        "icon": "ic_hide_24px"
+    }
+}

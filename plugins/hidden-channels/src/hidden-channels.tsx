@@ -50,20 +50,12 @@ function FancyDate({date}) {
         </Pressable>
     )
 }
-const iconId = getAssetIdByName("ic_hide_24px");
-
-<View style={{ marginTop: 16 }}>
-    <Image
-        source={iconId}
-        style={{ width: 24, height: 24 }}
-    />
-</View>
 
 export default function HiddenChannel({channel}) {
     return <View style={MessageStyles.container}>
         <Text style={MessageStyles.title}>This channel is hidden.</Text>
         <Text style={MessageStyles.text}>
-            Topic: {channel.topic || "No topic."}
+            Topic: {channel.topic || "No topic."}           
             {"\n\n"}
             Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
             {"\n\n"}

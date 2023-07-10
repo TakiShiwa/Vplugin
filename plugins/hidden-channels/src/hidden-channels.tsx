@@ -42,7 +42,7 @@ const MessageStyles = stylesheet.createThemedStyleSheet({
 })
 
 function FancyDate({ date }) {
-  const clockIcon = getAssetIdByName("ic_hide_24px");
+  const clockIcon = getAssetByName("ic_hide_24px");
   const tint = semanticColors.HEADER_PRIMARY;
 
   return (

@@ -3,7 +3,7 @@ import { findByProps } from "@vendetta/metro";
 import { semanticColors } from '@vendetta/ui';
 import { getAssetByName } from "@vendetta/ui/assets";
 
-const { View, Text, Pressable, Image } = findByProps("Button", "Text", "View", "Image");
+const { View, Text, Pressable, Image } = findByProps("Button", "Text", "View");
 
 const snowflakeUtils = findByProps("extractTimestamp");
 
@@ -27,9 +27,14 @@ const MessageStyles = stylesheet.createThemedStyleSheet({
     'fontSize': 16,
     'textAlign': 'justify',
     'color': semanticColors.HEADER_PRIMARY,
+  },
+  'dateContainer': {
+    'height': 16,
+    'alignSelf': 'baseline',
+    'flexDirection': 'row',
     'alignItems': 'center'
   },
-  'icon': {
+  'clockIcon': {
     'width': 16,
     'height': 16,
     'marginLeft': 4
@@ -37,7 +42,7 @@ const MessageStyles = stylesheet.createThemedStyleSheet({
 })
 
 function FancyDate({ date }) {
-  const clockIcon = getAssetByName("ic_hide_24px");
+  const clockIcon = getAssetIdByName("ic_hide_24px");
   const tint = semanticColors.HEADER_PRIMARY;
 
   return (
@@ -55,7 +60,7 @@ function FancyDate({ date }) {
       }}
     >
       <Text style={MessageStyles.text}>{moment(date).fromNow()}</Text>
-      <Image style={[MessageStyles.icon, { tintColor: tint }]} source={clockIcon} />
+      <Image style={[MessageStyles.clockIcon, { tintColor: tint }]} source={clockIcon} />
     </Pressable>
   );
 }
@@ -64,26 +69,23 @@ export default function HiddenChannel({ channel }) {
   return (
     <View style={MessageStyles.container}>
       <Text style={MessageStyles.title}>This channel is hidden.</Text>
-      <View style={MessageStyles.text}>
-        <Text>
-          Topic: {channel.topic || "No topic."}
-          {"\n\n"}
-          Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
-          {"\n\n"}
-          Last message: {channel.lastMessageId ? (
-            <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.lastMessageId))} />
-          ) : (
-            "No messages."
-          )}
-          {"\n\n"}
-          Last pin: {channel.lastPinTimestamp ? (
-            <FancyDate date={new Date(channel.lastPinTimestamp)} />
-          ) : (
-            "No pins."
-          )}
-        </Text>
-        <Image style={[MessageStyles.icon, { tintColor: semanticColors.HEADER_PRIMARY }]} source={getAssetByName("ic_hide_24px")} />
-      </View>
+      <Text style={MessageStyles.text}>
+        Topic: {channel.topic || "No topic."}
+        {"\n\n"}
+        Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
+        {"\n\n"}
+        Last message: {channel.lastMessageId ? (
+          <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.lastMessageId))} />
+        ) : (
+          "No messages."
+        )}
+        {"\n\n"}
+        Last pin: {channel.lastPinTimestamp ? (
+          <FancyDate date={new Date(channel.lastPinTimestamp)} />
+        ) : (
+          "No pins."
+        )}
+      </Text>
     </View>
   );
 }

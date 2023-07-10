@@ -53,21 +53,21 @@ function FancyDate({date}) {
 const iconId = getAssetIdByName("ic_hide_24px");
 
 export default function HiddenChannel({channel}) {
-    return <View style={MessageStyles.container}>
-        <Text style={MessageStyles.title}>This channel is hidden.</Text>
-        <Text style={MessageStyles.text}>
-            Topic: {channel.topic || "No topic."}
-            <View style={{ marginTop: 16 }}>
-                <src={getAssetIdByName("ic_hide_24px")}
-                    style={{ width: 24, height: 24 }}
-                />
-            </View>
-            {"\n\n"}
-            Creation date: <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.id))} />
-            {"\n\n"}
-            Last message: {channel.lastMessageId ? <FancyDate date={new Date(snowflakeUtils.extractTimestamp(channel.lastMessageId))} /> : "No messages."}
-            {"\n\n"}
-            Last pin: {channel.lastPinTimestamp ? <FancyDate date={new Date(channel.lastPinTimestamp)} /> : "No pins."}
-        </Text>
-    </View>
+   return (
+    <React.Component>
+        <View style={MessageStyles.container}>
+            <Text style={MessageStyles.title}>This channel is hidden.</Text>
+            <Text style={MessageStyles.text}>
+                Topic: {channel.topic || "No topic."}
+                <View style={{ marginTop: 16 }}>
+                    <Image
+                        source={iconId}
+                        style={{ width: 24, height: 24 }}
+                    />
+                </View>
+            </Text>
+        </View>
+    </React.Component>
+);
+
 }
